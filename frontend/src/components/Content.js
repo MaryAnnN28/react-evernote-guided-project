@@ -3,19 +3,30 @@ import NoteEditor from './NoteEditor';
 import NoteViewer from './NoteViewer';
 import Instructions from './Instructions';
 
-/*
-  Advice: If you cannot figure out how to get this component to work,
-          move the div and renderContent up into NoteContainer and
-          try to get it to work in the parent first.
-          Then complete the rest of your app before attempting to
-          refactor to get this Content component to work.
-*/
+
 class Content extends Component {
+  state = {
+    saveBeenClicked: false, 
+  }
+
   renderContent = () => {
-    if (false) {
-      return <NoteEditor />;
-    } else if (false) {
-      return <NoteViewer />;
+    const noteObj = this.props.selectedNote
+
+    if (this.props.editBeenClicked) {
+      return <NoteEditor
+        noteId={noteObj.id}
+        selectedNote={noteObj}
+        defaultTitleValue={noteObj.title}
+        defaultBodyValue={noteObj.body}
+        submitHandler={this.props.editSubmitHandler}
+        cancelClicked={this.props.cancelClicked} />;
+    } else if (this.props.beenClicked === true) {
+      return <NoteViewer
+        editClickHandler={this.props.editClickHandler} 
+        selectedNote={noteObj} 
+        noteId={noteObj.id}
+        deleteNoteHandler={this.props.deleteNoteHandler}
+        />;
     } else {
       return <Instructions />;
     }
